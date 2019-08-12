@@ -32,11 +32,11 @@
    //check if button clicked by player is within the phrase. If, it is run showMatchedLetter and checkForwin. If not, run removeLife function
    handleInteraction(pressedKey)
    {
-     let clickedLetter = pressedKey.textContent
      pressedKey.disabled = true;
+     const phraseClass = new Phrase(this.activePhrase);
      const letterArray = this.activePhrase.split("");
      const wordLength = letterArray.length;
-     const newArray = letterArray.filter( letter => letter !== clickedLetter )
+     const newArray = phraseClass.checkLetter(pressedKey);
      if(newArray.length === wordLength)
      {
        pressedKey.className = "wrong";
@@ -45,7 +45,6 @@
      else
      {
        pressedKey.className = "chosen";
-       const phraseClass = new Phrase(this.activePhrase);
        phraseClass.showMatchedLetter(pressedKey);
        this.checkForWin();
      }
@@ -55,8 +54,9 @@
    removeLife()
    {
      const heart = document.querySelectorAll("[src='images/liveHeart.png']");
+     this.missed += 1;
      heart[0].setAttribute("src", "images/lostHeart.png");
-     if(heart.length-1 == 0){
+     if(this.missed === 5){
        const message = document.getElementById('game-over-message');
        message.textContent = "YOU LOSE! TRY AGAIN AND GOOD LUCK!"
        this.gameOver();
@@ -85,6 +85,7 @@
    //reset everything by changing all heart images to liveheart, remove all li within #phrase and change all disabled onscreen keys to false an change its class name.
    refresh()
    {
+     this.missed = 0;
      const brokenHeart = document.querySelectorAll("[src='images/lostHeart.png']");
      for(let i=0; i < brokenHeart.length; i++)
      {

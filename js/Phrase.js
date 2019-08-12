@@ -36,12 +36,11 @@
    //check if the letter picked is in the phrase. If it is, run showMatchedLetter function
    checkLetter(pressedLetter)
    {
+     let clickedLetter = pressedLetter.textContent;
      const letterArray = this.phrase.split("");
-     letterArray.filter(character => character !== pressedLetter);
-     const letterCount = letterArray.length;
-     if( letterCount < this.phrase){
-       this.showMatchedLetter(pressedLetter);
-     }
+     const wordLength = letterArray.length;
+     const newArray = letterArray.filter( letter => letter !== clickedLetter );
+     return newArray;
    }
 
    //show matched letters and change class from hide to show for matched letters
