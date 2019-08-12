@@ -33,7 +33,7 @@
       }
    }
 
-   //check if the letter picked is in the phrase. If it is, run showMatchedLetter function
+   //check if the letter picked is in the phrase. If it is filter it out and create newArray and return it
    checkLetter(pressedLetter)
    {
      let clickedLetter = pressedLetter.textContent;
