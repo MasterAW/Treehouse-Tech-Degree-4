@@ -34,15 +34,13 @@
    {
      pressedKey.disabled = true;
      const phraseClass = new Phrase(this.activePhrase);
-     const letterArray = this.activePhrase.split("");
-     const wordLength = letterArray.length;
-     const newArray = phraseClass.checkLetter(pressedKey);
-     if(newArray.length === wordLength)
+     const letterCheck = phraseClass.checkLetter(pressedKey);
+     if(letterCheck === false) //if lettercheck is false, letter is not in phrase
      {
        pressedKey.className = "wrong";
        this.removeLife();
      }
-     else
+     else //otherwise it is true and letter is in phrase
      {
        pressedKey.className = "chosen";
        phraseClass.showMatchedLetter(pressedKey);
@@ -79,7 +77,17 @@
    //bring back overlay
    gameOver()
    {
-     document.getElementById('overlay').style.display = '';
+     const overlay = document.getElementById('overlay');
+     overlay.style.display = '';
+     if(this.missed === 5) //if missed 5, you win. else you win
+     {
+       overlay.className = "lose";
+     }
+     else
+     {
+       overlay.className = "win";
+     }
+
    }
 
    //reset everything by changing all heart images to liveheart, remove all li within #phrase and change all disabled onscreen keys to false an change its class name.
@@ -102,8 +110,6 @@
         disabledLetters[i].disabled = false;
         disabledLetters[i].className = "key";
       }
-
-
    }
 
  }

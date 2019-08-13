@@ -40,18 +40,28 @@
      const letterArray = this.phrase.split("");
      const wordLength = letterArray.length;
      const newArray = letterArray.filter( letter => letter !== clickedLetter );
-     return newArray;
+    if(newArray.length === wordLength)
+    {
+      return false; //returns false if no letter is filtered. this means the chosen leter is not in array.
+    }
+    else
+    {
+      return true; //otherwise, letter is in array and return true
+    }
    }
 
    //show matched letters and change class from hide to show for matched letters
    showMatchedLetter(letter)
    {
-     const textContent = letter.textContent;
-     const matchedLetter = document.getElementsByClassName(textContent);
-     for(let i=0; i < matchedLetter.length; i++)
+     if(this.checkLetter(letter) === true) //run showMatchedLetter code only if checkLetter returns true.
      {
-       matchedLetter[i].className = "show letter " + textContent;
-       matchedLetter[i].textContent = textContent;
+       const textContent = letter.textContent;
+       const matchedLetter = document.getElementsByClassName(textContent);
+       for(let i=0; i < matchedLetter.length; i++)
+       {
+         matchedLetter[i].className = "show letter " + textContent;
+         matchedLetter[i].textContent = textContent;
+       }
      }
    }
 
